@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "439752813619",
+    "project_id": "avisosufms",
+    "storage_bucket": "avisosufms.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439752813619:android:205516a83cf5b278ed0746",
+        "android_client_info": {
+          "package_name": "com.example.avisosufms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXeEkSNkQuYXn1jn5wVoTwfn_HTn06YDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

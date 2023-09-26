@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.avisosufms.helper.ConfiguracaoFirebase;
@@ -31,6 +33,9 @@ public class CadastroActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     private Toolbar toolbar;
+    private RadioGroup radioGroup;
+    private RadioButton botaoAluno, botaoProfessor, botaoSecretaria;
+    private String tipoCadastro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,20 @@ public class CadastroActivity extends AppCompatActivity {
 
         //configuracoes iniciais
         configuracoesIniciais();
+
+        //recupera o tipo de cadastro selecionado
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioButtonAluno) {
+                    tipoCadastro = "aluno";
+                } else if (checkedId == R.id.radioButtonProfessor) {
+                    tipoCadastro = "professor";
+                } else if (checkedId == R.id.radioButtonSecretaria) {
+                    tipoCadastro = "secretaria";
+                }
+            }
+        });
 
         //click listener para validar as entradas de cadastro
         botaoRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +78,12 @@ public class CadastroActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressCadastro);
         progressBar.setVisibility(View.GONE);
 
+        radioGroup = findViewById(R.id.radioGroup);
+        botaoAluno = findViewById(R.id.radioButtonAluno);
+        botaoProfessor = findViewById(R.id.radioButtonProfessor);
+        botaoSecretaria = findViewById(R.id.radioButtonSecretaria);
+        botaoAluno.setActivated(true);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,6 +102,7 @@ public class CadastroActivity extends AppCompatActivity {
                     usuario.setNome(textNome);
                     usuario.setEmail(textEmail);
                     usuario.setSenha(textSenha);
+                    usuario.setTipo(tipoCadastro);
 
                     cadastrarUsuario(usuario);
                 }else{
@@ -135,6 +161,7 @@ public class CadastroActivity extends AppCompatActivity {
                     }
                 });
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         finish();

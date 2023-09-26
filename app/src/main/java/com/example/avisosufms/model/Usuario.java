@@ -11,6 +11,7 @@ public class Usuario implements Serializable {
     private String email;
     private String id;
     private String senha;
+    private String tipo;
 
     @Exclude
     public String getSenha() {
@@ -28,6 +29,15 @@ public class Usuario implements Serializable {
         DatabaseReference userRef = databaseReference.child("usuarios").child(getId());
         userRef.setValue(this);
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getNome() {
         return nome;
     }

@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
 
 public class UsuarioFirebase {
     public static FirebaseUser getUsuarioLogado(){
@@ -48,8 +49,11 @@ public class UsuarioFirebase {
     }
     public static Usuario getDadosUsuarioLogado(){
         FirebaseUser firebaseUser = getUsuarioLogado();
-
+        DatabaseReference userLogadoReference = ConfiguracaoFirebase.getFirebaseDatabaseReference()
+                .child("usuarios")
+                .child(getIdUsuario());
         Usuario usuario = new Usuario();
+
         usuario.setEmail(firebaseUser.getEmail());
         usuario.setNome(firebaseUser.getDisplayName());
         usuario.setId(firebaseUser.getUid());

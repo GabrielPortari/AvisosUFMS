@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdicionarPostagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/medium_blue"
+        android:clickable="true"
+        android:contentDescription="fab adicionar aviso"
+        android:focusable="auto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_add_24"
+        app:tint="@color/white" />
+
     <include
         android:id="@+id/include2"
         layout="@layout/toolbar"
@@ -17,7 +32,7 @@
 
     <TextView
         android:id="@+id/textBemvindo"
-        android:layout_width="413dp"
+        android:layout_width="0dp"
         android:layout_height="40dp"
         android:background="@color/medium_blue"
         android:gravity="center"
@@ -35,19 +50,36 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBemvindo">
+        app:layout_constraintTop_toBottomOf="@+id/textBemvindo"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorGravity="bottom"
+        app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabAvisos"
+            android:id="@+id/tab_todos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Avisos" />
+            android:text="@string/tab_todos" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabBusca"
-            android:layout_width="wrap_content"
+            android:id="@+id/tabSecretaria"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Procurar" />
+            android:text="@string/tab_secretaria" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_professores" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_alunos" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
@@ -58,5 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

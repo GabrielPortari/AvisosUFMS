@@ -5,7 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/medium_blue</item>
         <item name="colorPrimaryDark">@color/darker_blue</item>
+        <item name="actionMenuTextColor">@color/white</item>
     </style>
-
+    <style name="Toolbar" parent="Base.Theme.AvisosUFMS">
+        <item name="tint">@color/white</item>
+    </style>
     <style name="Theme.AvisosUFMS" parent="Base.Theme.AvisosUFMS" />
 </resources>

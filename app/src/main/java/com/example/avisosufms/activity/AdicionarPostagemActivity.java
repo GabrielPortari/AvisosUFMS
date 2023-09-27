@@ -1,6 +1,7 @@
 package com.example.avisosufms.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -30,6 +31,7 @@ public class AdicionarPostagemActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private Usuario usuarioLogado;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +56,25 @@ public class AdicionarPostagemActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_close_24);
     }
 
+    private void dialogCarregando(String titulo){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(titulo);
+        alert.setCancelable(false);
+        alert.setView(R.layout.carregando);
+
+        alertDialog = alert.create();
+        alertDialog.show();
+
+    }
+
     private void publicarPostagem(){
         if(validarCampos()){
-
             /*
             Cria uma referencia no database para fazer uma consulta do usuario logado,
             visto que o metodo getDadosUsuarioLogado da classe UsuarioFirebase não é possivel
             recuperar o tipo de login do usuario
              */
+            dialogCarregando("Publicando");
             DatabaseReference usuarioLogadoReference = ConfiguracaoFirebase.getFirebaseDatabaseReference()
                     .child("usuarios")
                     .child(usuarioLogado.getId());
@@ -88,6 +101,7 @@ public class AdicionarPostagemActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Erro ao publicar", Toast.LENGTH_SHORT).show();
                         Log.e("INFO POST", "Erro ao salvar no firebase");
                     }
+                    alertDialog.cancel();
                     finish();
                 }
 

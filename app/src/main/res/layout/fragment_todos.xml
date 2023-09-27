@@ -3,4 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.TodosFragment"/>
+    tools:context=".fragment.TodosFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTodos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

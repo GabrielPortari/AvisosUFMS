@@ -19,7 +19,10 @@ import com.example.avisosufms.helper.UsuarioFirebase;
 import com.example.avisosufms.model.Postagem;
 import com.example.avisosufms.model.Usuario;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class AdicionarPostagemActivity extends AppCompatActivity {
     private TextInputEditText editTextTitulo, editTextPublicacao;
@@ -53,32 +56,57 @@ public class AdicionarPostagemActivity extends AppCompatActivity {
 
     private void publicarPostagem(){
         if(validarCampos()){
-            Postagem postagem = new Postagem();
 
-            postagem.setNomeUsuarioPostagem(usuarioLogado.getNome());
-            postagem.setIdUsuarioPostagem(usuarioLogado.getId());
-            postagem.setTipo(usuarioLogado.getTipo());
-            postagem.setTitulo(editTextTitulo.getText().toString());
-            postagem.setTexto(editTextPublicacao.getText().toString());
+            /*
+            Cria uma referencia no database para fazer uma consulta do usuario logado,
+            visto que o metodo getDadosUsuarioLogado da classe UsuarioFirebase não é possivel
+            recuperar o tipo de login do usuario
+             */
+            DatabaseReference usuarioLogadoReference = ConfiguracaoFirebase.getFirebaseDatabaseReference()
+                    .child("usuarios")
+                    .child(usuarioLogado.getId());
+            usuarioLogadoReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //recupera os dados do usuario logado via consulta no firebase
+                    Postagem postagem = new Postagem();
 
-            postagem.setData(DateCustom.getDataAtual());
-            postagem.setHora(DateCustom.getHoraAtual());
+                    postagem.setTipo(snapshot.getValue(Usuario.class).getTipo());
+                    postagem.setNomeUsuarioPostagem(snapshot.getValue(Usuario.class).getNome());
+                    postagem.setIdUsuarioPostagem(snapshot.getValue(Usuario.class).getId());
+                    postagem.setEmailUsuarioPostagem(snapshot.getValue(Usuario.class).getEmail());
+                    postagem.setTitulo(editTextTitulo.getText().toString());
+                    postagem.setTexto(editTextPublicacao.getText().toString());
+                    postagem.setTexto_minusculo(editTextPublicacao.getText().toString().toLowerCase());
+                    postagem.setData(DateCustom.getDataAtual());
+                    postagem.setHora(DateCustom.getHoraAtual());
 
-            if(postagem.salvarNoFirebase()){
-                Toast.makeText(this, "Postagem publicada", Toast.LENGTH_SHORT).show();
-                Log.i("INFO POST", "Postagem salva no firebase");
-            }else{
-                Toast.makeText(this, "Erro ao publicar", Toast.LENGTH_SHORT).show();
-                Log.e("INFO POST", "Erro ao salvar no firebase");
-            }
-            finish();
+                    if(postagem.salvarNoFirebase()){
+                        Toast.makeText(getApplicationContext(), "Postagem publicada", Toast.LENGTH_SHORT).show();
+                        Log.i("INFO POST", "Postagem salva no firebase");
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Erro ao publicar", Toast.LENGTH_SHORT).show();
+                        Log.e("INFO POST", "Erro ao salvar no firebase");
+                    }
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
     }
     private boolean validarCampos(){
         if(!editTextTitulo.getText().toString().isEmpty()) {
             if (!editTextPublicacao.getText().toString().isEmpty()) {
                 return true;
+            }else{
+                Toast.makeText(this, "Preencha os campos antes de continuar!", Toast.LENGTH_SHORT).show();
             }
+        }else{
+            Toast.makeText(this, "Preencha os campos antes de continuar!", Toast.LENGTH_SHORT).show();
         }
         return false;
     }

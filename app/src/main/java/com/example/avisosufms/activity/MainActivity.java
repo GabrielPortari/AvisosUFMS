@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     private String nomeUsuarioLogado;
     private Toolbar toolbar;
-    private TextView textBemvindo;
     private FirebaseAuth firebaseAuth;
     private FloatingActionButton fabAdicionarPostagem;
 
@@ -88,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.viewPager2);
         tabLayout = findViewById(R.id.tabLayout);
         fabAdicionarPostagem = findViewById(R.id.fabAdicionarPostagem);
-        textBemvindo = findViewById(R.id.textBemvindo);
-        textBemvindo.setText("Olá " + nomeUsuarioLogado);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

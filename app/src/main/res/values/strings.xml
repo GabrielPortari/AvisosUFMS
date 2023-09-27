@@ -23,6 +23,8 @@
 
     <!-- main activity -->
     <string name="bemvindo">Olá</string>
+    <string name="text_publicacao">Texto da publicação</string>
+    <string name="data_hora">Data e hora</string>
 
     <!-- Tab names -->
     <string name="tab_todos">Todos</string>
@@ -39,4 +41,5 @@
     <string name="titulo">Título</string>
     <string name="digite_aqui">Digite aqui</string>
     <string name="publicar">Publicar</string>
+    <string name="info">\t** As informações como data, horário, nome e tipo do usuário que está postando a publicação são geradas automáticamentes.</string>
 </resources>

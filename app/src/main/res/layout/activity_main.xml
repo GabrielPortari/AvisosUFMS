@@ -30,27 +30,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textBemvindo"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/medium_blue"
-        android:gravity="center"
-        android:text="@string/bemvindo"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBemvindo"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
         app:tabGravity="fill"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="bottom"

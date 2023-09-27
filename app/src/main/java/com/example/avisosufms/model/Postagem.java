@@ -3,14 +3,18 @@ package com.example.avisosufms.model;
 import com.example.avisosufms.helper.ConfiguracaoFirebase;
 import com.google.firebase.database.DatabaseReference;
 
-public class Postagem {
+import java.io.Serializable;
+
+public class Postagem implements Serializable {
     private String idPostagem;
     private String nomeUsuarioPostagem;
     private String idUsuarioPostagem;
+    private String emailUsuarioPostagem;
     private String data;
     private String hora;
     private String titulo;
     private String texto;
+    private String texto_minusculo;
     private String tipo;
 
     /*
@@ -20,6 +24,7 @@ public class Postagem {
                 titulo
                 descricao
                 nomeUsuario
+                emailUsuario
                 idUsuario
                 data
                 hora
@@ -52,6 +57,14 @@ public class Postagem {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getTexto_minusculo() {
+        return texto_minusculo;
+    }
+
+    public void setTexto_minusculo(String texto_minusculo) {
+        this.texto_minusculo = texto_minusculo;
     }
 
     public String getIdPostagem() {
@@ -104,6 +117,14 @@ public class Postagem {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public String getEmailUsuarioPostagem() {
+        return emailUsuarioPostagem;
+    }
+
+    public void setEmailUsuarioPostagem(String emailUsuarioPostagem) {
+        this.emailUsuarioPostagem = emailUsuarioPostagem;
     }
 
     public void setTipo(String tipo) {

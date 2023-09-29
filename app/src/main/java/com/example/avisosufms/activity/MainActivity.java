@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_buscar){
             startActivity(new Intent(getApplicationContext(), BuscaActivity.class));
         }
+        if(item.getItemId() == R.id.menu_configuracoes){
+            startActivity(new Intent(getApplicationContext(), ConfiguracoesActivity.class));
+        }
         if(item.getItemId() == R.id.menu_sair){
             deslogar();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));

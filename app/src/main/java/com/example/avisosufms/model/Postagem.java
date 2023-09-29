@@ -7,9 +7,7 @@ import java.io.Serializable;
 
 public class Postagem implements Serializable {
     private String idPostagem;
-    private String nomeUsuarioPostagem;
     private String idUsuarioPostagem;
-    private String emailUsuarioPostagem;
     private String data;
     private String hora;
     private String titulo;
@@ -23,8 +21,6 @@ public class Postagem implements Serializable {
             id_postagem
                 titulo
                 descricao
-                nomeUsuario
-                emailUsuario
                 idUsuario
                 data
                 hora
@@ -63,9 +59,6 @@ public class Postagem implements Serializable {
         return texto_minusculo;
     }
 
-    public void setTexto_minusculo(String texto_minusculo) {
-        this.texto_minusculo = texto_minusculo;
-    }
 
     public String getIdPostagem() {
         return idPostagem;
@@ -75,13 +68,6 @@ public class Postagem implements Serializable {
         this.idPostagem = idPostagem;
     }
 
-    public String getNomeUsuarioPostagem() {
-        return nomeUsuarioPostagem;
-    }
-
-    public void setNomeUsuarioPostagem(String nomeUsuarioPostagem) {
-        this.nomeUsuarioPostagem = nomeUsuarioPostagem;
-    }
 
     public String getIdUsuarioPostagem() {
         return idUsuarioPostagem;
@@ -105,6 +91,7 @@ public class Postagem implements Serializable {
 
     public void setTexto(String texto) {
         this.texto = texto;
+        this.texto_minusculo = texto.toLowerCase();
     }
 
     public String getData() {
@@ -117,14 +104,6 @@ public class Postagem implements Serializable {
 
     public String getTipo() {
         return tipo;
-    }
-
-    public String getEmailUsuarioPostagem() {
-        return emailUsuarioPostagem;
-    }
-
-    public void setEmailUsuarioPostagem(String emailUsuarioPostagem) {
-        this.emailUsuarioPostagem = emailUsuarioPostagem;
     }
 
     public void setTipo(String tipo) {

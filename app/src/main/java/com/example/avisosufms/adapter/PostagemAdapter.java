@@ -10,16 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.avisosufms.R;
+import com.example.avisosufms.helper.ConfiguracaoFirebase;
 import com.example.avisosufms.model.Postagem;
+import com.example.avisosufms.model.Usuario;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class PostagemAdapter extends RecyclerView.Adapter<PostagemAdapter.MyViewHolder> {
     private List<Postagem> listaPostagens;
     private Context context;
+    private Usuario usuario;
     public PostagemAdapter(List<Postagem> listaPostagens, Context context) {
         this.listaPostagens = listaPostagens;
         this.context = context;
+        usuario = new Usuario();
     }
 
     @NonNull
@@ -33,9 +41,29 @@ public class PostagemAdapter extends RecyclerView.Adapter<PostagemAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Postagem postagem = listaPostagens.get(position);
 
+        /*
+        recuperar a referencia do usuario no firebase
+        a partir do ID do usuario na postagem para
+        configuração da exibição dos dados
+         */
+        DatabaseReference usuarioReference = ConfiguracaoFirebase.getFirebaseDatabaseReference().child("usuarios").child(postagem.getIdUsuarioPostagem());
+        usuarioReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                usuario = snapshot.getValue(Usuario.class);
+                holder.textEmail.setText(usuario.getEmail());
+
+                String nome = usuario.getNome();
+                String[] nome_array = nome.split(" ");
+                holder.textNome.setText(nome_array[0]);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         holder.textTitulo.setText(postagem.getTitulo());
-        holder.textEmail.setText(postagem.getEmailUsuarioPostagem());
-        holder.textNome.setText(postagem.getNomeUsuarioPostagem());
 
         //formatação do horario para mostragem
         String horario = postagem.getData() + " às " + postagem.getHora();
@@ -44,8 +72,8 @@ public class PostagemAdapter extends RecyclerView.Adapter<PostagemAdapter.MyView
         //Formata a publicação caso tenha mais de 100 caracteres
         if(postagem.getTexto().length() > 100){
             String texto = postagem.getTexto();
-            String[] chunks = texto.split("(?<=\\G.{" + 88 + "})");
-            String textoFormatado = chunks[0] + "... ver mais";
+            String[] texto_array = texto.split("(?<=\\G.{" + 88 + "})");
+            String textoFormatado = texto_array[0] + "... ver mais";
             holder.textTexto.setText(textoFormatado);
         }else{
             holder.textTexto.setText(postagem.getTexto());

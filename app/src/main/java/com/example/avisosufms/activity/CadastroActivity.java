@@ -102,6 +102,7 @@ public class CadastroActivity extends AppCompatActivity {
                     usuario.setNome(textNome);
                     usuario.setEmail(textEmail);
                     usuario.setSenha(textSenha);
+                    usuario.setFoto("");
                     usuario.setTipo(tipoCadastro);
 
                     cadastrarUsuario(usuario);

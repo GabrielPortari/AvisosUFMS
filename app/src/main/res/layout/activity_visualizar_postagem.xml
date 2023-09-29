@@ -6,45 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".activity.VisualizarPostagemActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <include
         android:id="@+id/include5"
         layout="@layout/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textTituloVisualizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/titulo"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include5" />
+        android:layout_width="411dp"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/textDataHoraVisualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/data_hora"
         android:textAlignment="textEnd"
-        app:layout_constraintBottom_toBottomOf="@+id/textTituloVisualizar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textTituloVisualizar" />
-
-    <TextView
-        android:id="@+id/textNomeVisualizar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/nome_text"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTituloVisualizar" />
 
     <TextView
@@ -53,16 +35,54 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/email_text"
-        app:layout_constraintStart_toEndOf="@+id/textNomeVisualizar"
-        app:layout_constraintTop_toBottomOf="@+id/textTituloVisualizar" />
+        app:layout_constraintBottom_toBottomOf="@+id/circleImagePerfilVisualizar"
+        app:layout_constraintStart_toEndOf="@+id/circleImagePerfilVisualizar"
+        app:layout_constraintTop_toBottomOf="@+id/textNomeVisualizar" />
+
+    <TextView
+        android:id="@+id/textTituloVisualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/titulo"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/circleImagePerfilVisualizar" />
 
     <TextView
         android:id="@+id/textTextoVisualizar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/text_publicacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDataHoraVisualizar" />
+
+    <TextView
+        android:id="@+id/textNomeVisualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/text_publicacao"
+        android:layout_marginBottom="8dp"
+        android:text="@string/nome_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textEmailVisualizar"
+        app:layout_constraintStart_toEndOf="@+id/circleImagePerfilVisualizar"
+        app:layout_constraintTop_toTopOf="@+id/circleImagePerfilVisualizar"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImagePerfilVisualizar"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/perfil_padrao"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeVisualizar" />
+        app:layout_constraintTop_toBottomOf="@+id/include5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

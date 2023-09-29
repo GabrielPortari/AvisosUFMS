@@ -34,7 +34,9 @@
 
     <!-- menu -->
     <string name="menu_buscar">Buscar</string>
+    <string name="menu_config">Configurações</string>
     <string name="menu_sair">Sair</string>
+    <string name="menu_info">Informações</string>
 
     <!-- adicionar postagem -->
     <string name="adicionar_postagem">Adicionar nova postagem</string>
@@ -42,4 +44,8 @@
     <string name="digite_aqui">Digite aqui</string>
     <string name="publicar">Publicar</string>
     <string name="info">\t** As informações como data, horário, nome e tipo do usuário que está postando a publicação são geradas automáticamentes.</string>
+
+    <!-- configuracoes -->
+    <string name="alterar_foto">Alterar foto</string>
+    <string name="salvar">Salvar alterações</string>
 </resources>

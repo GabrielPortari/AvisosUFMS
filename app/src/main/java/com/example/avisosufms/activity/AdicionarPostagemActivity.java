@@ -85,12 +85,9 @@ public class AdicionarPostagemActivity extends AppCompatActivity {
                     Postagem postagem = new Postagem();
 
                     postagem.setTipo(snapshot.getValue(Usuario.class).getTipo());
-                    postagem.setNomeUsuarioPostagem(snapshot.getValue(Usuario.class).getNome());
                     postagem.setIdUsuarioPostagem(snapshot.getValue(Usuario.class).getId());
-                    postagem.setEmailUsuarioPostagem(snapshot.getValue(Usuario.class).getEmail());
                     postagem.setTitulo(editTextTitulo.getText().toString());
                     postagem.setTexto(editTextPublicacao.getText().toString());
-                    postagem.setTexto_minusculo(editTextPublicacao.getText().toString().toLowerCase());
                     postagem.setData(DateCustom.getDataAtual());
                     postagem.setHora(DateCustom.getHoraAtual());
 

@@ -7,6 +7,11 @@
         android:title="@string/menu_buscar"
         app:showAsAction="always" />
     <item
+        android:id="@+id/menu_configuracoes"
+        android:title="@string/menu_config"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_sair"
-        android:title="@string/menu_sair" />
+        android:title="@string/menu_sair"
+        app:showAsAction="never" />
 </menu>

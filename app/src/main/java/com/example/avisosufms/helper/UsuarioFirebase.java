@@ -1,5 +1,6 @@
 package com.example.avisosufms.helper;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,30 @@ public class UsuarioFirebase {
             e.printStackTrace();
         }
     }
+    public static void atualizarFotoUsuario(Uri url){
+        try{
+            //recupera o usuario logado
+            FirebaseUser usuarioLogado = getUsuarioLogado();
+
+            //utiliza o profile change request pra buildar o novo perfil
+            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest
+                    .Builder()
+                    .setPhotoUri(url)
+                    .build();
+
+            //apos recuperar o usuario logado, utiliza o update profile para atualizar no firebase
+            usuarioLogado.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(!task.isSuccessful()){
+                        Log.d("PERFIL", "Erro ao atualizar foto de perfil");
+                    }
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public static Usuario getDadosUsuarioLogado(){
         FirebaseUser firebaseUser = getUsuarioLogado();
         DatabaseReference userLogadoReference = ConfiguracaoFirebase.getFirebaseDatabaseReference()
@@ -56,6 +81,11 @@ public class UsuarioFirebase {
 
         usuario.setEmail(firebaseUser.getEmail());
         usuario.setNome(firebaseUser.getDisplayName());
+        if(firebaseUser.getPhotoUrl() != null){
+            usuario.setFoto(firebaseUser.getPhotoUrl().toString());
+        }else{
+            usuario.setFoto("");
+        }
         usuario.setId(firebaseUser.getUid());
 
         return usuario;

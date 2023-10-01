@@ -25,6 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,9 +33,10 @@ public class BuscaActivity extends AppCompatActivity {
     private SearchView searchView;
     private RecyclerView recyclerPesquisa;
     private PostagemAdapter postagemAdapter;
-    private DatabaseReference databaseReference;
-    private List<Postagem> listaPostagem;
+    private DatabaseReference postagensReference;
+    private List<Postagem> listaPostagem, listaPostagemFiltrada;
     private Toolbar toolbar;
+    private ValueEventListener valueEventListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class BuscaActivity extends AppCompatActivity {
         configuracoesIniciais();
 
         //configurações recycler view e adapter
-        postagemAdapter = new PostagemAdapter(listaPostagem, getApplicationContext());
+        postagemAdapter = new PostagemAdapter(listaPostagemFiltrada, getApplicationContext());
 
         recyclerPesquisa.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -55,7 +57,7 @@ public class BuscaActivity extends AppCompatActivity {
                 /*
                 Seleciona a postagem para abrir a activity para melhor visualização
                  */
-                Postagem postagemSelecionada = listaPostagem.get(position);
+                Postagem postagemSelecionada = listaPostagemFiltrada.get(position);
                 Intent intent = new Intent(getApplicationContext(), VisualizarPostagemActivity.class);
                 intent.putExtra("postagemSelecionada", postagemSelecionada);
                 startActivity(intent);
@@ -94,39 +96,39 @@ public class BuscaActivity extends AppCompatActivity {
     }
 
     private void buscarPostagem(String s){
-        //reinicia a lista a cada busca;
-        listaPostagem.clear();
-
-        //pesquisar usuario
-        if(s.length() > 1){
-            Query query = databaseReference.orderByChild("texto_minusculo")
-                    .startAt(s)
-                    .endAt(s + "\uf8ff");
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    listaPostagem.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        Postagem postagem = dataSnapshot.getValue(Postagem.class);
-                        listaPostagem.add(postagem);
-                    }
-                    postagemAdapter.notifyDataSetChanged();
-                    Log.i("Busca", "Busca: " + s);
-                    Log.i("ListSize", "Tamanho da lista: " + listaPostagem.size());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+        listaPostagemFiltrada.clear();
+        for(Postagem p : listaPostagem){
+            if(p.getTexto_minusculo().contains(s) || p.getTitulo().toLowerCase().contains(s)){
+                listaPostagemFiltrada.add(p);
+            }
         }
+        Collections.reverse(listaPostagemFiltrada);
+        postagemAdapter.notifyDataSetChanged();
     }
+
+    private void recuperarPostagens(){
+        valueEventListener = postagensReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listaPostagem.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    listaPostagem.add(dataSnapshot.getValue(Postagem.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void configuracoesIniciais(){
         searchView = findViewById(R.id.searchView);
         recyclerPesquisa = findViewById(R.id.recyclerBusca);
         listaPostagem = new ArrayList<>();
-        databaseReference = ConfiguracaoFirebase.getFirebaseDatabaseReference().child("postagem-todos");
+        listaPostagemFiltrada = new ArrayList<>();
+        postagensReference = ConfiguracaoFirebase.getFirebaseDatabaseReference().child("postagem-todos");
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -137,5 +139,16 @@ public class BuscaActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return false;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        recuperarPostagens();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        postagensReference.removeEventListener(valueEventListener);
     }
 }

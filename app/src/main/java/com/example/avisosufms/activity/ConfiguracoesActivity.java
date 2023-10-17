@@ -202,7 +202,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.menu_info){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(ConfiguracoesActivity.this);
             alertDialog.setTitle("AVISOS UFMS");
-            alertDialog.setMessage("Este aplicativo tem o intuito de facilitar o envio/troca de informações entre docentes, discentes e secretária em uma escala maior\nDesenvolvido por Gabriel Portari de Moraes Oliveira - Sistemas de Informação - 2023");
+            alertDialog.setMessage("Este aplicativo tem o intuito de facilitar o envio/troca de informações entre docentes, discentes e secretária em uma escala maior.\nDesenvolvido por:\nGabriel Portari de Moraes Oliveira\nSistemas de Informação\n2023");
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

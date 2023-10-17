@@ -87,7 +87,8 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/baseline_mail_outline_24"
             android:drawableTint="@color/dark_gray"
-            android:hint="@string/email_text" />
+            android:hint="@string/email_text"
+            android:textColor="@color/light_gray" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

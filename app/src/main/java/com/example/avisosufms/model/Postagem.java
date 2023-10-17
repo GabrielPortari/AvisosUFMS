@@ -12,7 +12,6 @@ public class Postagem implements Serializable {
     private String hora;
     private String titulo;
     private String texto;
-    private String texto_minusculo;
     private String tipo;
 
     /*
@@ -47,16 +46,26 @@ public class Postagem implements Serializable {
 
         return true;
     }
+
+    public boolean excluirPostagem(){
+        //remove a postagem de todos
+        DatabaseReference databaseReference = ConfiguracaoFirebase.getFirebaseDatabaseReference();
+        DatabaseReference postagemReference = databaseReference.child("postagem-todos").child(getIdPostagem());
+        postagemReference.removeValue();
+
+        //remove a postagem no tipo especifico
+        String postagem = "postagem-"+getTipo();
+        DatabaseReference postagemTipo = databaseReference.child(postagem).child(getIdPostagem());
+        postagemTipo.removeValue();
+
+        return true;
+    }
     public String getHora() {
         return hora;
     }
 
     public void setHora(String hora) {
         this.hora = hora;
-    }
-
-    public String getTexto_minusculo() {
-        return texto_minusculo;
     }
 
 
@@ -91,7 +100,6 @@ public class Postagem implements Serializable {
 
     public void setTexto(String texto) {
         this.texto = texto;
-        this.texto_minusculo = texto.toLowerCase();
     }
 
     public String getData() {
@@ -109,4 +117,5 @@ public class Postagem implements Serializable {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
 }

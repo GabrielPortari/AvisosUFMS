@@ -44,6 +44,7 @@ public class VisualizarPostagemActivity extends AppCompatActivity {
 
             //recupera informações da postagem
             textTitulo.setText(postagem.getTitulo());
+            toolbar.setTitle(postagem.getTitulo());
             textTexto.setText(postagem.getTexto());
             String dataHora = postagem.getData() + " às " + postagem.getHora();
             textHora.setText(dataHora);

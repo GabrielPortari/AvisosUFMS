@@ -36,7 +36,8 @@
     <string name="menu_buscar">Buscar</string>
     <string name="menu_config">Configurações</string>
     <string name="menu_sair">Sair</string>
-    <string name="menu_info">Sobre</string>
+    <string name="menu_info">Sobre o app</string>
+    <string name="menu_minhas_publicacoes">Minhas publicações</string>
 
     <!-- adicionar postagem -->
     <string name="adicionar_postagem">Adicionar nova postagem</string>

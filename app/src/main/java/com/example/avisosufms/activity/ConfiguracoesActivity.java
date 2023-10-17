@@ -51,9 +51,6 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     private Button buttonSalvar;
     private Usuario usuarioLogado;
     private Toolbar toolbar;
-    private String[] permissoes = new String[]{
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    };
     private StorageReference storageReference;
     private FirebaseUser firebaseUser;
 
@@ -62,8 +59,6 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configuracoes);
         configuracoesIniciais();
-
-        //Permissao.validarPermissoes(permissoes, this, 1);
 
         //carregar dados do usuario nos componentes, como nome, email e foto
         carregarDadosUsuario();
@@ -129,8 +124,8 @@ public class ConfiguracoesActivity extends AppCompatActivity {
             circleImagePerfil.setImageResource(R.drawable.perfil_padrao);
         }
         //recupera nome e email do usuario
-        editNome.setText(usuarioLogado.getNome());
-        editEmail.setText(usuarioLogado.getEmail());
+        editNome.setText(firebaseUser.getDisplayName());
+        editEmail.setText(firebaseUser.getEmail());
     }
 
     /*
@@ -179,7 +174,6 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                                                 Uri url = task.getResult();
                                                 //Atualizar foto no firebase auth
                                                 UsuarioFirebase.atualizarFotoUsuario(url);
-
                                                 //Atualizar foto no firebase database
                                                 usuarioLogado.setFoto(url.toString());
                                                 usuarioLogado.atualizarNoFirebase();
@@ -207,8 +201,8 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.menu_info){
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(ConfiguracoesActivity.this);
-            alertDialog.setTitle("Informações");
-            alertDialog.setMessage("Copyright © 2023, Gabriel Portari\nTodos os direitos reservados");
+            alertDialog.setTitle("AVISOS UFMS");
+            alertDialog.setMessage("Este aplicativo tem o intuito de facilitar o envio/troca de informações entre docentes, discentes e secretária em uma escala maior\nDesenvolvido por Gabriel Portari de Moraes Oliveira - Sistemas de Informação - 2023");
             alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -216,6 +210,9 @@ public class ConfiguracoesActivity extends AppCompatActivity {
                 }
             });
             alertDialog.show();
+        }
+        if(item.getItemId() == R.id.menu_minhasPublicacoes){
+            startActivity(new Intent(getApplicationContext(), MinhasPublicacoesActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

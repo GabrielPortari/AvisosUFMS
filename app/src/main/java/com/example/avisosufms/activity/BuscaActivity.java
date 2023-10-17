@@ -97,13 +97,15 @@ public class BuscaActivity extends AppCompatActivity {
 
     private void buscarPostagem(String s){
         listaPostagemFiltrada.clear();
-        for(Postagem p : listaPostagem){
-            if(p.getTexto_minusculo().contains(s) || p.getTitulo().toLowerCase().contains(s)){
-                listaPostagemFiltrada.add(p);
+        if(s.length() > 2) {
+            for (Postagem p : listaPostagem) {
+                if (p.getTexto().toLowerCase().contains(s) || p.getTitulo().toLowerCase().contains(s)) {
+                    listaPostagemFiltrada.add(p);
+                }
             }
+            Collections.reverse(listaPostagemFiltrada);
+            postagemAdapter.notifyDataSetChanged();
         }
-        Collections.reverse(listaPostagemFiltrada);
-        postagemAdapter.notifyDataSetChanged();
     }
 
     private void recuperarPostagens(){
